@@ -63,4 +63,15 @@ if __name__ == "__main__":
         mlflow.log_metric("r2", r2)
         mlflow.log_metric("mae", mae)
 
-        mlflow.sklearn.log_model(lr, "model")
+
+        # Log the sklearn model and register as version 1
+        mlflow.sklearn.log_model(
+            sk_model=lr,
+            artifact_path="model",
+            input_example=train_x,
+            registered_model_name="Wine_Quality_model",
+        )
+        run = mlflow.active_run()
+        print(f"Run ID: {run.info.run_id}")
+
+
